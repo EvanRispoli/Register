@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openBackgroundChoice(name: String) {
         val intent = Intent(this, BackgroundChoiceActivity::class.java)
-        intent.putExtra(BackgroundChoiceActivity.MY_NAME, binding.inputName.text.toString())
+        intent.putExtra(BackgroundChoiceActivity.MY_NAME, name)
         startActivity(intent)
     }
 

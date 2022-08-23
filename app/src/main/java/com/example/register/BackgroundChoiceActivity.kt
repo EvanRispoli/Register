@@ -38,7 +38,7 @@ class BackgroundChoiceActivity : AppCompatActivity() {
     private fun setupViews() {
         var title = ""
         val name = intent.getStringExtra(MY_NAME)
-        if (name.isNullOrBlank()) {
+        if (!name.isNullOrBlank()) {
             title += "Hi $name,\n"
         }
         title += "Chose the background color."
