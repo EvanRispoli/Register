@@ -28,7 +28,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.btnBackground.setOnClickListener{
             //Open new window(Activity)
-            openBackgroundChoice()
+
+            if (binding.inputName.text.isNullOrBlank()){
+                openBackgroundChoice()
+            }else {
+                openBackgroundChoice(binding.inputName.text.toString())
+            }
 
         }
 
@@ -36,6 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun openBackgroundChoice() {
         val intent = Intent(this, BackgroundChoiceActivity::class.java)
+        startActivity(intent)
+    }
+    private fun openBackgroundChoice(name: String) {
+        val intent = Intent(this, BackgroundChoiceActivity::class.java)
+        intent.putExtra(BackgroundChoiceActivity.MY_NAME, binding.inputName.text.toString())
         startActivity(intent)
     }
 
