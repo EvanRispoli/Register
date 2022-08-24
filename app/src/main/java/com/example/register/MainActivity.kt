@@ -3,6 +3,7 @@ package com.example.register
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
@@ -51,6 +52,13 @@ class MainActivity : AppCompatActivity() {
                 openBackgroundChoice(binding.inputName.text.toString())
             }
 
+        }
+        binding.btnChosePicture.setOnClickListener{
+            selectPicture()
+        }
+
+        binding.btnShare.setOnClickListener {
+            sendMessage()
         }
 
     }
@@ -102,6 +110,32 @@ class MainActivity : AppCompatActivity() {
         val BackgroundChoiceActivity_REQUEST_CODE = 1
         val RAINBOW_COLOR = "RAINBOW_COLOR"
         val DEFAULT_COLOR = "#FFFFFF"
+    }
+
+    /*
+    * Takes photo from galery
+    * */
+// Implicit intent to pick up content
+    val getContent = registerForActivityResult(ActivityResultContracts.GetContent())
+    { uri: Uri? ->
+        binding.imageView.setImageURI(uri)
+    }
+
+    fun selectPicture(){
+        getContent.launch("image/*")
+    }
+
+    private fun sendMessage(){
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            val textMessage = binding.inputName.text.toString()
+            putExtra(Intent.EXTRA_TEXT, textMessage)
+            type = "text/plain"
+        }
+//        Check if the dispositive can execute the demanded action
+        if (sendIntent.resolveActivity(packageManager) != null){
+            startActivity(sendIntent)
+        }
     }
 
 }
